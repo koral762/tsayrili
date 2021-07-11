@@ -1,0 +1,21 @@
+.home-game {
+    width: 100%;
+    background-image: url('../img/bgc.PNG');
+    background-size: cover;
+    height: 100vh;
+}
+
+.new-game {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-game button {
+    background: #ffc108;
+    font-size: 4rem;
+    padding: 25px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.new-game button {}

@@ -1,0 +1,145 @@
+@import url('../css/home.css');
+@import url('../css/appHeader.css');
+@import url('../css/cavnasPage.css');
+@import url('../css/helpers.css');
+@import url('../css/selectWords.css');
+@import url('../css/nextTurn.css');
+@import url('../css/animation.css');
+
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    direction: rtl;
+    /* max-width: 1000px; */
+    /* margin: auto;
+    padding: 40px; */
+    margin: 0;
+    font-size: 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    margin: 0;
+    line-height: 1.3;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+.canvas-wrapper {
+    /* Prevent nearby text being highlighted when accidentally dragging mouse outside confines of the canvas */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+canvas {
+    border: 2px solid #888;
+    border-radius: 4px;
+    /* Might be needed for correct mouse co-ords in Firefox */
+    position: relative;
+}
+
+button {
+    font-size: 1.2em;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.step-guess {
+    width: 100%;
+}
+
+.spot-list-container {
+    background-color: rgb(82, 209, 251, 0.8);
+    color: whitesmoke;
+    padding: 10px;
+    transition: .3s;
+    position: relative;
+}
+
+.spot-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* .spot-list li {
+    background-color: whitesmoke;
+    color: black;
+    text-align: center;
+    width: 1em;
+    height: 1em;
+    border-radius: 20px;
+    border: 6px solid #5f8f9e;
+    margin: 0 5px;
+    font-size: 5.5rem;
+    color: white;
+} */
+
+/* .letter-list-container {
+    background-color: #f5f6f6;
+    color: whitesmoke;
+    padding: 10px;
+} */
+
+.letter-list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr)
+}
+
+.letter-list li, .spot-list li {
+    background-color: #3fbdfb;
+    border-radius: 20px;
+    border: 6px solid #5f8f9e;
+    color: white;
+    font-size: 5.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.2rem;
+}
+
+.letter-list li {
+    box-shadow: 1px 4px #5f8f9e;
+}
+
+.letter-list li.letter-choosen {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.spot-list li {
+    height: 6rem;
+    width: 6rem;
+    /* margin: 0 0.5rem; */
+}

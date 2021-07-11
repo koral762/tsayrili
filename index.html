@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <title>ציירילי</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script
+      src="https://kit.fontawesome.com/1ed641f7ad.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <section class="home-game">
+      <header class="main-header flex">
+        <div
+          class="header-container main-layout flex align-center space-between"
+        >
+          <div class="curr-action"><img src="img/currency.png" /></div>
+          <div class="logo"><img src="img/logo.png" /></div>
+          <div class="header-action"></div>
+        </div>
+      </header>
+      <section class="user-reward">
+        <div class="main-layout flex">
+          <div class="user-bombs flex align-center">
+            <img src="img/bomb.png" />
+            <span></span>
+          </div>
+          <div class="user-coins flex align-center">
+            <img src="img/currency.png" />
+            <span></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="new-game" hidden>
+        <button class="btn-guess-words">נחש משהו</button>
+        <button class="btn-guess-word">נחש מילה אחרונה</button>
+        <button class="btn-draw-word">צייר מילה</button>
+      </div>
+
+      <section class="step-select-word main-layout" hidden>
+        <h2 class="flex align-center space-between">
+          <div class="btn-replace-words flex align-center space-around">
+            <img src="img/currency.png" />
+            <span>5</span>
+            <i class="fas fa-random"></i>
+          </div>
+          <span> בחרי מילה </span>
+          <img src="img/logo2.png" />
+        </h2>
+
+        <ul class="word-list"></ul>
+      </section>
+    </section>
+
+    <section class="step-draw" hidden>
+      <header class="sub-header flex">
+        <div class="turn-count flex column align-center">
+          שלב
+          <span class="turn-level">1</span>
+        </div>
+
+        <h2 class="turn-about flex align-center"></h2>
+      </header>
+      <div>
+        <div class="color-palt"></div>
+      </div>
+
+      <div class="canvas-wrapper flex justify-center">
+        <canvas height="750" width="750"> </canvas>
+      </div>
+
+      <!-- <div class="btns-action">
+        <input
+          type="range"
+          name="brushSize"
+          value="1"
+          min="1"
+          max="17"
+          step="4"
+          title="Brush Size"
+        />
+
+        <button class="btn-clear" title="Clear">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="btn-send" title="Done">🖅</button>
+      </div> -->
+
+      <div class="btns-action">
+        <section class="container-brush">
+          <section class="modal-size"></section>
+          <button class="btn-brush-size">
+            <img src="img/logo3.png" />
+          </button>
+        </section>
+
+        <section class="container-eraser">
+          <section class="modal-size"></section>
+          <button class="btn-eraser-size">
+            <img src="img/eraser.jfif" />
+          </button>
+        </section>
+
+        <button class="btn-clear" title="Clear">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="btn-cancel" title="Back">🗙</button>
+
+        <div class="btn-send" title="Done">
+          <i class="fas fa-check"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-guess" hidden>
+      <button class="btn-cancel-guess" title="Back">🗙</button>
+      <button class="btn-play" title="Play Drawing">▶</button>
+      <button class="btn-bomb">💣</button>
+      <button class="btn-replace-letters">🌫</button>
+      <div class="spot-list-container flex justify-center">
+        <div class="correct" hidden>Correct</div>
+        <ul class="spot-list"></ul>
+      </div>
+      <ul class="letter-list main-layout"></ul>
+    </section>
+
+    <section class="next-turn" hidden>
+      <h2>הציור נוחש נכון</h2>
+      <div class="turn-num flex column">
+        <h2>תור</h2>
+        <span class="prev-num slide-out-bottom"></span>
+        <span class="next-num slide-in-top"></span>
+      </div>
+      <button class="btn-go">שחק</button>
+    </section>
+
+    <script type="module" src="js/utilService.js"></script>
+    <script type="module" src="js/userService.js"></script>
+    <script type="module" src="js/drawService.js"></script>
+    <script type="module" src="js/canvasController.js"></script>
+    <script type="module" src="js/userController.js"></script>
+    <script type="module" src="js/controller.js"></script>
+  </body>
+</html>
