@@ -14,15 +14,15 @@ export const canvasController = {
 
 var gCanvas, gCtx,
     flag = false,
-    prevX = 0,
-    currX = 0,
-    prevY = 0,
-    currY = 0,
+    prevX = -1,
+    currX = -1,
+    prevY = -1,
+    currY = -1,
     dot_flag = false;
 var isMouseDown = false;
 
 var gDrawDots = window.dots = []
-var isPlayDraw = window.isPlayDraw = false
+var gameState  = window.gameState = ''
 
 const gDraw = {
     color: 'black',
@@ -35,6 +35,7 @@ function initCanvas() {
     gCtx = gCanvas.getContext('2d')
     gCanvas.addEventListener('mouseout', () => {
         isMouseDown = false
+
     })
     gCanvas.addEventListener('mousedown', _onCanvasMouseDown)
     gCanvas.addEventListener('touchstart', _onCanvasMouseDown)
@@ -66,9 +67,9 @@ function _onCanvasMouseDown(ev) {
     isMouseDown = true
     let mousePos = _getMousePos(ev)
 
-    if (isMouseDown && !window.isPlayDraw) {
-        prevX = (!currX) ? mousePos.x : currX;
-        prevY = (!currY) ? mousePos.y : currY;
+    if (isMouseDown && window.gameState === 'making-draw' ) {
+        prevX = (currX === -1) ? mousePos.x : currX;
+        prevY = (currY === -1) ? mousePos.y : currY;
         currX = mousePos.x;
         currY = mousePos.y;
 
@@ -102,12 +103,12 @@ function _onCanvasMouseUp() {
     isMouseDown = false;
     flag = false;
 
-    currX = 0;
-    currY = 0;
+    currX = -1;
+    currY = -1;
 
     var dot = {
-        x: 0,
-        y: 0
+        x: -1,
+        y: -1
     }
     gDrawDots.push(dot)
 
@@ -146,9 +147,8 @@ function drawDot(pos) {
 
     } else {
         dot = pos;
-        window.isPlayDraw = true;
-        prevX = (!currX) ? dot.x : currX;
-        prevY = (!currY) ? dot.y : currY;
+        prevX = (currX === -1) ? dot.x : currX;
+        prevY = (currY === -1) ? dot.y : currY;
         currX = dot.x;
         currY = dot.y;
     }
@@ -156,7 +156,7 @@ function drawDot(pos) {
     gCtx.fillStyle = dot.color
     gCtx.beginPath()
     gCtx.moveTo(prevX, prevY);
-    if (dot.x !== 0 || dot.y !== 0) {
+    if (dot.x !== -1 || dot.y !== -1) {
         gCtx.lineTo(currX,currY);
     }
     gCtx.strokeStyle = dot.color;
@@ -177,13 +177,8 @@ function onSetColor(ev) {
 }
 
 function onSetBrushSize(ev) {
-    var str = ev.path[0].outerHTML;
-    var size;
-    if (str.includes('size1')) size = 1;
-    if (str.includes('size2')) size = 2;
-    if (str.includes('size3')) size = 3;
-    if (str.includes('size4')) size = 4;
-
+    var size = +ev.path[0].getAttribute('data-size');
+ 
     if (gDraw.color === 'white') size = size * 3;
     setDraw('brushSize', size)
 }
@@ -191,7 +186,7 @@ function onSetBrushSize(ev) {
 
 function drawEnd() {
     var newDraw = {
-        drawDots: [...gDrawDots],
+        drawDots: [...gDrawDots]
     }
     gDrawDots = [];
     return newDraw;

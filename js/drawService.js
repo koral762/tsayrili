@@ -83,10 +83,10 @@ const gLetters = 'אבגדהוזחטיכלמנסעפצקרשת'.split('');
 
 function drawsList() {
     
-    var Draws = storageService.loadFromStorage('DrawsList')
+    var draws = storageService.loadFromStorage('DrawsList')
 
-    if (!Draws || !Draws.length) {
-        gDrawsToGuess = Draws;
+    if (!draws || !draws.length) {
+        gDrawsToGuess = draws;
     }
     gDrawsToGuess = [];
     storageService.saveToStorage('gDrawsToGuess',gDrawsToGuess);

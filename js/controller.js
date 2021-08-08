@@ -4,7 +4,6 @@ import { userService } from './userService.js'
 import { userController } from './userController.js'
 import { canvasController } from './canvasController.js'
 import { drawService } from './drawService.js'
-import { storageService } from './storageService.js'
 
 
 window.onload = onInit
@@ -36,9 +35,9 @@ function onInit() {
     document.querySelector('.btn-replace-letters').addEventListener('click', _onPutLetters)
     document.querySelector('.btn-go').addEventListener('click', _onNextLevel)
 
-    document.querySelector('.btn-brush-size').addEventListener('click', _onToggleModalBrushSize)
+    document.querySelector('.btn-brush-size').addEventListener('click', _onToggleBrushSize)
     document.querySelector('.btn-brush-size').addEventListener('click', () => canvasController.setDraw('color', 'black'))
-    document.querySelector('.btn-eraser-size').addEventListener('click', onToggleModalEraserSize)
+    document.querySelector('.btn-eraser-size').addEventListener('click', onToggleEraserSize)
     document.querySelector('.btn-eraser-size').addEventListener('click', () => canvasController.setDraw('color', 'white'))
     _renderWords();
 }
@@ -86,6 +85,7 @@ function _onDrawWord() {
 
 function _onGuessWord() {
     const drawToGuss = drawService.getDrawToGuess();
+    window.gameState = 'playing-draw'
     if (!drawToGuss) console.log('No draws');
     else {
         document.querySelector('.btns-action').style.display = 'none';
@@ -97,6 +97,7 @@ function _onGuessWord() {
 
 function _onGuessWords() {
     const drawToGuss = drawService.getDrawToGuess();
+    window.gameState = 'playing-draw'
     if (!drawToGuss) console.log('No draws');
     else {
         document.querySelector('.btns-action').style.display = 'none';
@@ -122,12 +123,12 @@ function _backHome() {
 }
 
 function _onChooseWord(ev) {
+    window.gameState = 'making-draw'
     document.querySelector('.home-game').hidden = true;
     document.querySelector('.step-draw').hidden = false;
     document.querySelector('.btns-action').style.display = 'flex';
     document.querySelector('.color-palt').hidden = false;
     document.querySelector('.btn-send').hidden = false;
-
     const el = ev.target.closest('[data-txt]')
     const { txt, score } = el.dataset
     if (!txt) return
@@ -241,11 +242,13 @@ function _turnOver(currDraw) {
 function _onPlayDraw() {
     canvasController.clearCanvas();
     const currDraw = drawService.getCurrDraw();
+    currDraw.drawDots.push({brushSize: 1,color: "black",x: 0,y: 0})
     currDraw.drawDots.forEach((dot, idx) => {
         dot.play = true;
         setTimeout(canvasController.drawDot, 10 * idx, dot)
-
     })
+
+
 }
 
 function _onUseBomb() {
@@ -301,32 +304,32 @@ function _onPutLetters() {
 function _renderModalSize(elContainer) {
     let strHtml = ``;
     for (let i = 4; i > 0; i--) {
-        strHtml += `<div data-id=${i} class='circle-size'>
-                     <span class='size${i}'></span>
+        strHtml += `<div data-size=${i} class='circle-size'>
+                     <span data-size=${i} class='size${i}'></span>
                     </div>`
     }
     elContainer.innerHTML = strHtml;
     elContainer.style.display = 'none';
 }
 
-function _onToggleModalBrushSize() {
-    _onToggleModalSize(document.querySelector('.container-brush .modal-size'));
+function _onToggleBrushSize() {
+    _onToggleSize(document.querySelector('.container-brush .modal-size'));
     let elIsOpenOrNot = document.querySelector('.container-eraser .modal-size');
     if ((elIsOpenOrNot.style.display !== 'none')) {
-        _onToggleModalSize(elIsOpenOrNot)
+        _onToggleSize(elIsOpenOrNot)
     }
 }
 
-function onToggleModalEraserSize() {
-    _onToggleModalSize(document.querySelector('.container-eraser .modal-size'))
+function onToggleEraserSize() {
+    _onToggleSize(document.querySelector('.container-eraser .modal-size'))
     let elIsOpenOrNot = document.querySelector('.container-brush .modal-size');
     if ((elIsOpenOrNot.style.display !== 'none')) {
-        _onToggleModalSize(elIsOpenOrNot)
+        _onToggleSize(elIsOpenOrNot)
     }
 
 }
 
-function _onToggleModalSize(elContainer) {
+function _onToggleSize(elContainer) {
     (elContainer.style.display === 'none') ?
         elContainer.style.display = 'flex'
         : elContainer.style.display = 'none';
